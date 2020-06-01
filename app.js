@@ -1,15 +1,14 @@
 const express = require('express');
 const path = require('path');
-const port = 1234;
 const webSocketServer = require('websocket').server;
 const http = require('http');
 
-const server = http.createServer();
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
 const app = express();
+const port = process.env.PORT || 5000;
 
 app.use(express.static(path.join(__dirname, 'build')));
 
@@ -44,6 +43,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+const server = http.createServer(app);
 
 // Start server and listen on port
 server.listen(port);
